@@ -111,20 +111,34 @@ In this section, you will create an Amazon Lambda function that will validate th
 
 """
 
-
 ### Intents Handlers ###
 def recommend_portfolio(intent_request):
     """
     Performs dialog management and fulfillment for recommending a portfolio.
     """
-
+    
+    # Fetching slot values
     first_name = get_slots(intent_request)["firstName"]
     age = get_slots(intent_request)["age"]
     investment_amount = get_slots(intent_request)["investmentAmount"]
     risk_level = get_slots(intent_request)["riskLevel"]
+    
+    # Initialize the function and to validate the user's data input.
     source = intent_request["invocationSource"]
-
-    # YOUR CODE GOES HERE!
+    
+    
+    # Basic validation on supplied input slots
+    
+    # From AWS docs - invocation: DialogCodeHook
+    if source == "DialogCodeHook":
+        
+        # Get slot values
+        slots = get_slots(intent_request)
+        
+        
+        
+    
+    
 
 
 ### Intents Dispatcher ###
