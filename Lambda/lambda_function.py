@@ -26,6 +26,44 @@ def build_validation_result(is_valid, violated_slot, message_content):
         "message": {"contentType": "PlainText", "content": message_content},
     }
 
+def validate_data(age, investment_amount, risk_level, risk_options, intent_request):
+    """
+    Validates user input data.
+    """
+    
+    # Validates: 0 < age < 65
+    if age is not None:
+        age = parse_int(age)    # Ensures age is integer
+        if age <= 0 or age >= 65:
+            return build_validation_result(
+                False,
+                "age",
+                "Your age must be greater than 0 and less than 65 to use this service, "
+                "please provide and different age."
+            )
+    
+    # Validates: investment amount >= 5000
+    if investment_amount is not None:
+        investment_amount = parse_int(investment_amount)    # Ensures investment amount is integer
+        if investment_amount < 5000:
+            return build_validation_result(
+                False,
+                "investmentAmount",
+                "Your investment must be greater than or equal to $5000, "
+                "please provide and different investment amoount."
+            )
+    
+    # Validates: risk level is equal to one of the provided options
+    risk_options = ["none", "low", "medium", "high"]:
+    if risk_level is not None:
+        risk_level = risk_lever.lower() # Converting to lowercase to ensure recognition of option selection
+        if risk_level is not in risk_options:
+            return build_validation_result(
+                False,
+                "riskLevel",
+                "The selected risk level is not valid, "
+                "please choose a valid risk level for your investment ('None', 'Low', 'Medium', 'High')."
+        
 
 ### Dialog Actions Helper Functions ###
 def get_slots(intent_request):
@@ -126,7 +164,10 @@ def recommend_portfolio(intent_request):
     # Initialize the function and to validate the user's data input.
     source = intent_request["invocationSource"]
     
-    
+    # Provided risk options - easy to change
+    risk_options = ["none", "low", "medium", "high"]
+
+
     # Basic validation on supplied input slots
     
     # From AWS docs - invocation: DialogCodeHook
@@ -135,6 +176,8 @@ def recommend_portfolio(intent_request):
         # Get slot values
         slots = get_slots(intent_request)
         
+        # Validating user input 
+        validation = validate_data(age, investment_amount, risk_level, risk_options, intent_request)
         
         
     
