@@ -23,7 +23,7 @@ You’ll accomplish the following main tasks:
 
 
 #### RoboAdvisor Configuration
-**Slots**
+
 | Slot Name | Slot Type | Prompt | 
 | --------- | --------- | ------ | 
 | firstName | AMAZON.US_FIRST_NAME | Thank you for trusting me to help, could you please give me your name? |
