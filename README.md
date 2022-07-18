@@ -22,7 +22,7 @@ You’ll accomplish the following main tasks:
     * This includes testing the Amazon Lambda function and integrating it with the bot.
 
 
-#### RoboAdvisor Configuration**
+#### RoboAdvisor Configuration
 **Slots**
 | Slot Name | Slot Type | Prompt | 
 | --------- | --------- | ------ | 
@@ -32,11 +32,12 @@ You’ll accomplish the following main tasks:
 | riskLevel | AMAZON.AlphaNumeric | What level of investment risk would you like to take? (None, Low, Medium, High) | 
 
 **Confirmation Prompt**
-“Confirmation prompt” section, and then set the following messages:
-Confirm: Thanks, now I will look for the best investment portfolio for you.
-Cancel: I will be pleased to assist you in the future.
+* Confirm: 
+    * Thanks, now I will look for the best investment portfolio for you.
+* Cancel:
+    * I will be pleased to assist you in the future.
 
-**Testing Bot Conversation**
+**Bot Testing Dialogue**
 ```text
  User: I want to invest for my retirement
 
@@ -59,7 +60,7 @@ Cancel: I will be pleased to assist you in the future.
  Robo advisor: Thanks, now I will look for the best investment portfolio for you.
  ``` 
 
-**Final Cofiguration**
+**Final RoboAdvisor Cofiguration**
 * Code Lambda Function
 * Test Lambda Function with 'Test Events' found in Resources Folder
 * Integrate your new Lambda function into the bot by selecting it in:
