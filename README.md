@@ -66,6 +66,9 @@ Cancel: I will be pleased to assist you in the future.
     * “Lambda initialization and validation”
     * “Fulfillment” sections.
 
+## Bot Testing Recordings
+![Initial RoboAdvisor Testing](https://github.com/ALovettII/15-challenge/blob/main/Recordings/initial_Bot.mov)
+![Final Lambda-Enhanced RoboAdvisor Testing](https://github.com/ALovettII/15-challenge/blob/main/Recordings/enhanced_Bot.mov)
 
 ## Contributors
 Created by Arthur Lovett
