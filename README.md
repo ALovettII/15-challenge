@@ -2,7 +2,7 @@
  Combine AWS skills with Python to create a bot that will recommend an investment portfolio for a retirement plan.
 
 
-# Technologies
+## Technologies
 Need set up before completing project:
 * AWS Billing
 * Amazon Simple Storage Service (Amazon S3)
@@ -11,7 +11,7 @@ Need set up before completing project:
 * AWS Identity and Access Management (IAM)
 
 
-# Usage
+## Usage
 You’ll accomplish the following main tasks:
 1. Configure the initial robo advisor:
     * Define an Amazon Lex bot with a single intent that establishes a conversation about requirements to suggest an investment portfolio for retirement.
@@ -22,7 +22,7 @@ You’ll accomplish the following main tasks:
     * This includes testing the Amazon Lambda function and integrating it with the bot.
 
 
-#### Initial RoboAdvisor Configuration**
+#### RoboAdvisor Configuration**
 **Slots**
 | Slot Name | Slot Type | Prompt | 
 | --------- | --------- | ------ | 
@@ -59,16 +59,23 @@ Cancel: I will be pleased to assist you in the future.
  Robo advisor: Thanks, now I will look for the best investment portfolio for you.
  ``` 
 
-#### Final Cofiguration
+**Final Cofiguration**
 * Code Lambda Function
 * Test Lambda Function with 'Test Events' found in Resources Folder
 * Integrate your new Lambda function into the bot by selecting it in:
     * “Lambda initialization and validation”
     * “Fulfillment” sections.
 
+
 ## Bot Testing Recordings
+Proper deployment of this proejct should yield the following results:
+
+**Initial RoboAdvisor Testing**
 ![Initial RoboAdvisor Testing](https://github.com/ALovettII/15-challenge/blob/main/Recordings/initial_Bot.mov)
+
+**Final Lambda-Enhanced RoboAdvisor Testing**
 ![Final Lambda-Enhanced RoboAdvisor Testing](https://github.com/ALovettII/15-challenge/blob/main/Recordings/enhanced_Bot.mov)
+
 
 ## Contributors
 Created by Arthur Lovett
