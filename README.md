@@ -2,7 +2,17 @@
  Combine AWS skills with Python to create a bot that will recommend an investment portfolio for a retirement plan.
 
 
-You’ll be asked to accomplish the following main tasks:
+# Technologies
+Need set up before completing project:
+* AWS Billing
+* Amazon Simple Storage Service (Amazon S3)
+* Amazon Lex
+* Amazon Lambda
+* AWS Identity and Access Management (IAM)
+
+
+# Usage
+You’ll accomplish the following main tasks:
 1. Configure the initial robo advisor:
     * Define an Amazon Lex bot with a single intent that establishes a conversation about requirements to suggest an investment portfolio for retirement.
 2. Build and test the robo advisor:
@@ -12,24 +22,8 @@ You’ll be asked to accomplish the following main tasks:
     * This includes testing the Amazon Lambda function and integrating it with the bot.
 
 
-This section divides the Challenge instructions into the following three steps:
-1. Configure the initial robo advisor
-2. Build and test the robo advisor
-3. Enhance the robo advisor with an Amazon Lambda function
-
-For the submission, you will upload the following files to your repo:
-* A Python script with your final Lambda function.
-* Two short videos or animated GIFs that demo your robo advisor in action from the “Test bot” pane as requested
-
-Sample Utterances:
-* I want to save money for my retirement
-* I'm {age} and I would like to invest for my retirement
-* I'm {age} and I want to invest for my retirement
-* I want the best option to invest for my retirement
-* I'm worried about my retirement
-* I want to invest for my retirement
-* I would like to invest for my retirement
-
+#### Initial RoboAdvisor Configuration**
+**Slots**
 | Slot Name | Slot Type | Prompt | 
 | --------- | --------- | ------ | 
 | firstName | AMAZON.US_FIRST_NAME | Thank you for trusting me to help, could you please give me your name? |
@@ -37,8 +31,12 @@ Sample Utterances:
 | investmentAmount | AMAZON. NUMBER | How much do you want to invest? |
 | riskLevel | AMAZON.AlphaNumeric | What level of investment risk would you like to take? (None, Low, Medium, High) | 
 
+**Confirmation Prompt**
+“Confirmation prompt” section, and then set the following messages:
+Confirm: Thanks, now I will look for the best investment portfolio for you.
+Cancel: I will be pleased to assist you in the future.
 
-Testing Bot Conversation
+**Testing Bot Conversation**
 ```text
  User: I want to invest for my retirement
 
@@ -60,3 +58,14 @@ Testing Bot Conversation
  
  Robo advisor: Thanks, now I will look for the best investment portfolio for you.
  ``` 
+
+#### Final Cofiguration
+* Code Lambda Function
+* Test Lambda Function with 'Test Events' found in Resources Folder
+* Integrate your new Lambda function into the bot by selecting it in:
+    * “Lambda initialization and validation”
+    * “Fulfillment” sections.
+
+
+## Contributors
+Created by Arthur Lovett
