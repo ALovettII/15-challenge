@@ -26,6 +26,7 @@ def build_validation_result(is_valid, violated_slot, message_content):
         "message": {"contentType": "PlainText", "content": message_content},
     }
 
+
 def validate_data(age, investment_amount, risk_level, risk_options, intent_request):
     """
     Validates user input data.
@@ -39,7 +40,7 @@ def validate_data(age, investment_amount, risk_level, risk_options, intent_reque
                 False,
                 "age",
                 "Your age must be greater than 0 and less than 65 to use this service, "
-                "please provide and different age."
+                "please provide and different age.",
             )
     
     # Validates: investment amount >= 5000
@@ -50,7 +51,7 @@ def validate_data(age, investment_amount, risk_level, risk_options, intent_reque
                 False,
                 "investmentAmount",
                 "Your investment must be greater than or equal to $5000, "
-                "please provide and different investment amoount."
+                "please provide and different investment amoount.",
             )
     
     # Validates: risk level is equal to one of the provided options
@@ -62,8 +63,34 @@ def validate_data(age, investment_amount, risk_level, risk_options, intent_reque
                 False,
                 "riskLevel",
                 "The selected risk level is not valid, "
-                "please choose a valid risk level for your investment ('None', 'Low', 'Medium', 'High')."
+                "please choose a valid risk level for your investment ('None', 'Low', 'Medium', 'High').",
+            )
         
+    # If both fields valid: returns True
+    return build_validation_result(True, None, None)
+
+
+def reccomendation(risk_level):
+    """
+    Returns an appropriate investment recccomendation for the provided risk level.
+    """
+    
+    # Storing portfolio options in dictionary
+    portfolios = {
+        "none": "100% bonds (AGG), 0% equities (SPY)",
+        "low": "60% bonds (AGG), 40% equities (SPY)",
+        "medium": "40% bonds (AGG), 60% equities (SPY)"
+        "high": "20% bonds (AGG), 80% equities (SPY)"
+    }
+    
+    # Converting to lowercase to ensure recognition of option selection
+    risk_level = risk_lever.lower()
+    
+    # Getting portfolio key for respective risk level
+    recommended = portfolio.get(risk_level)
+    
+    return reccomended
+    
 
 ### Dialog Actions Helper Functions ###
 def get_slots(intent_request):
@@ -164,24 +191,54 @@ def recommend_portfolio(intent_request):
     # Initialize the function and to validate the user's data input.
     source = intent_request["invocationSource"]
     
-    # Provided risk options - easy to change
+    # Provided risk options - external definition for ease of change
     risk_options = ["none", "low", "medium", "high"]
 
 
-    # Basic validation on supplied input slots
-    
+    # Basic validation on supplied input slots    
     # From AWS docs - invocation: DialogCodeHook
     if source == "DialogCodeHook":
-        
+
         # Get slot values
         slots = get_slots(intent_request)
         
         # Validating user input 
-        validation = validate_data(age, investment_amount, risk_level, risk_options, intent_request)
+        validation_result = validate_data(age, investment_amount, risk_level, risk_options, intent_request)
         
+        # If user input is invalid:
+        # `elicitSlot` dialogue action is used to re-prompt for first violation detected
+        if not validation_result["isValid"]:
+            slots[validation_result["violatedSlot"]] = None    # Clear invalid slot
+            
+            # Returns an 'elicitSlot' dialogue to request new data for the invalid slot
+            return elicit_slot(
+                intent_request["sessionAttributes"],
+                intent_request["currentIntent"]["name"],
+                slots,
+                validation_result["violatedSlot"],
+                validation_result["message"],,
+            )
         
+        # Fetch current session attributes
+        output_session_attributes = intent_request["sessionAttributes"]
+        
+        # Once all slots valid:
+        # a 'delegate' dialog is returned to Lex to choose action
+        return delegate(output_session_attributes, get_slots(intent_request))
     
-    
+    # Return a message with portfolio reccomendations
+    return close(
+        intent_request["sessionAttributes"],
+        "Fulfilled",
+        {
+            "contentType": "PlainText",
+            "content": """Thank you for your information.
+            Your reccomended portfolio: {}.
+            """.format(
+                reccomendation(risk_level)
+            ),
+        },
+    )
 
 
 ### Intents Dispatcher ###
