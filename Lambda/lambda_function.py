@@ -51,14 +51,13 @@ def validate_data(age, investment_amount, risk_level, risk_options, intent_reque
                 False,
                 "investmentAmount",
                 "Your investment must be greater than or equal to $5000, "
-                "please provide and different investment amoount.",
+                "please provide and different investment amount.",
             )
     
     # Validates: risk level is equal to one of the provided options
-    risk_options = ["none", "low", "medium", "high"]:
     if risk_level is not None:
-        risk_level = risk_lever.lower() # Converting to lowercase to ensure recognition of option selection
-        if risk_level is not in risk_options:
+        risk_level = risk_level.lower() # Converting to lowercase to ensure recognition of option selection
+        if risk_level not in risk_options:
             return build_validation_result(
                 False,
                 "riskLevel",
@@ -70,7 +69,7 @@ def validate_data(age, investment_amount, risk_level, risk_options, intent_reque
     return build_validation_result(True, None, None)
 
 
-def reccomendation(risk_level):
+def recommendation(risk_level):
     """
     Returns an appropriate investment recccomendation for the provided risk level.
     """
@@ -79,17 +78,17 @@ def reccomendation(risk_level):
     portfolios = {
         "none": "100% bonds (AGG), 0% equities (SPY)",
         "low": "60% bonds (AGG), 40% equities (SPY)",
-        "medium": "40% bonds (AGG), 60% equities (SPY)"
+        "medium": "40% bonds (AGG), 60% equities (SPY)",
         "high": "20% bonds (AGG), 80% equities (SPY)"
     }
     
     # Converting to lowercase to ensure recognition of option selection
-    risk_level = risk_lever.lower()
+    risk_level = risk_level.lower()
     
     # Getting portfolio key for respective risk level
-    recommended = portfolio.get(risk_level)
+    recommended = portfolios.get(risk_level)
     
-    return reccomended
+    return recommended
     
 
 ### Dialog Actions Helper Functions ###
@@ -216,7 +215,7 @@ def recommend_portfolio(intent_request):
                 intent_request["currentIntent"]["name"],
                 slots,
                 validation_result["violatedSlot"],
-                validation_result["message"],,
+                validation_result["message"],
             )
         
         # Fetch current session attributes
@@ -235,9 +234,9 @@ def recommend_portfolio(intent_request):
             "content": """Thank you for your information.
             Your reccomended portfolio: {}.
             """.format(
-                reccomendation(risk_level)
-            ),
-        },
+                recommendation(risk_level)
+            )
+        }
     )
 
 
